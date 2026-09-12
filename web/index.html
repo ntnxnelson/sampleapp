@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Nutanix Services</title>
+        <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="./css/bootstrap-grid.min.css">
+        <link rel="stylesheet" type="text/css" href="./css/style.css">
+    </head>
+    <body>
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-sm">
+                    <div class="row" id="top-header">
+                        <img src="./images/nutanix-x-2.png" alt="Nutanix">
+                        <div class="col-sm">
+                            Nutanix Demo
+                        </div>
+                    </div>
+                    <!-- top-header -->
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm" id="tagline">
+                    Peaks Application
+                </div>
+                <!-- tagline -->
+            </div>
+
+            <!-- the two placeholders below are filled in by setup.sh at install time -->
+            <div class="row">
+                <div class="col-sm server-info">
+                    <div class="web-info">Nginx IP address: WEB_IP_ADDRESS <br/> Nginx Host Name: WEB_SERVER_NAME</div>
+                </div>
+                <div class="col-sm server-info">
+                    <div id="nodeInfo" class="node-info">Node.js IP Address: &hellip; <br/> Node.js Host Name: &hellip;</div>
+                </div>
+            </div>
+
+            <div class="row search-group">
+                <div class="col-sm">
+                    <input id="search-text" class="form-control" placeholder="Enter search criteria" autocomplete="off">
+                </div>
+                <div class="col-sm">
+                    <select id="search-criteria" class="form-control">
+                        <option value="peak">Peak</option>
+                        <option value="rank">Rank</option>
+                        <option value="elevation">Elevation</option>
+                        <option value="state">State</option>
+                        <option value="range">Range</option>
+                    </select>
+                </div>
+                <div class="col-sm">
+                    <button class="btn btn-primary" id="search-data" type="button">Search</button>
+                    <button class="btn btn-secondary" id="show-all" type="button">Show All</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm">
+                    <div class="card">
+                        <div class="card-header">Add Peak
+                            <span class="show-hide-add-peak" role="button">
+                                [&nbsp;<span class="show-hide-plus">+</span><span class="show-hide-minus">-</span>&nbsp;]
+                            </span>
+                        </div>
+                        <div class="card-body add-peak-body">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <input class="form-control" id="rank-text" placeholder="Rank">
+                                </div>
+                                <div class="col-sm">
+                                    <input class="form-control" id="peak-text" placeholder="Peak">
+                                </div>
+                                <div class="col-sm">
+                                    <input class="form-control" id="elevation-text" placeholder="Elevation">
+                                </div>
+                                <div class="col-sm">
+                                    <input class="form-control" id="state-text" placeholder="State">
+                                </div>
+                                <div class="col-sm">
+                                    <input class="form-control" id="range-text" placeholder="Range">
+                                </div>
+                                <div class="col-sm">
+                                    <button class="btn btn-primary" id="add-data" type="button">Add Data</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm">
+                    <div class="alert alert-success data-message" role="status">
+                        Peak Data Added Successfully
+                    </div>
+                    <!-- data-message -->
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm">
+                    <div id="demobox">
+                    </div>
+                    <!-- demobox -->
+                </div>
+            </div>
+
+        </div>
+        <!-- container-fluid -->
+
+        <script type="text/javascript" src="./js/jquery-3.2.1.js"></script>
+        <script type="text/javascript" src="./js/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript" src="./js/data.js"></script>
+    </body>
+</html>

@@ -1,0 +1,23 @@
+# systemd unit for the Peaks demo API. Installed by setup.sh, which fills in
+# the absolute paths to node and the application directory.
+[Unit]
+Description=Peaks demo API (Node.js)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=peaks
+Group=peaks
+WorkingDirectory=/opt/peaks-api
+EnvironmentFile=-/etc/default/peaks-api
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/node app.js
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+ProtectSystem=full
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
