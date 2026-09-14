@@ -112,9 +112,10 @@ sudo NODEJS_IP_ADDRESS=<nodejs-vm-ip> ~/peaks-web/setup.sh
 What it does:
 
 - copies the site to `/var/www/peaks` (override with `WEB_ROOT`);
-- replaces the `WEB_IP_ADDRESS` and `WEB_SERVER_NAME` placeholders in
-  `index.html` (defaults: this host's first IP and hostname; override with the
-  same-named variables);
+- replaces the `WEB_IP_ADDRESS`, `WEB_SERVER_NAME` and `APP_TITLE`
+  placeholders in `index.html` (defaults: this host's first IP, its hostname,
+  and "Nutanix Demo"; override with the same-named variables, e.g.
+  `APP_TITLE="Acme Peaks"`);
 - installs `nginx/peaks.conf` as the default site, with `/api/` proxied to
   `NODEJS_IP_ADDRESS:NODEJS_PORT` (default port 3000), and removes the stock
   default site;

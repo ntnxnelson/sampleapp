@@ -10,6 +10,7 @@
 # Environment variables:
 #     NODEJS_IP_ADDRESS  (required) IP or hostname of the Node.js VM
 #     NODEJS_PORT        port the Node.js API listens on   (default: 3000)
+#     APP_TITLE          heading shown at the top of the page (default: Nutanix Demo)
 #     WEB_IP_ADDRESS     shown on the page                  (default: this host's first IP)
 #     WEB_SERVER_NAME    shown on the page                  (default: this host's hostname)
 #     WEB_ROOT           where to install the site          (default: /var/www/peaks)
@@ -21,6 +22,12 @@ NODEJS_PORT="${NODEJS_PORT:-3000}"
 : "${NODEJS_IP_ADDRESS:?Set NODEJS_IP_ADDRESS to the IP or hostname of the Node.js VM}"
 WEB_IP_ADDRESS="${WEB_IP_ADDRESS:-$(hostname -I 2>/dev/null | awk '{print $1}')}"
 WEB_SERVER_NAME="${WEB_SERVER_NAME:-$(hostname)}"
+APP_TITLE="${APP_TITLE:-Nutanix Demo}"
+
+# Escape a value for use as HTML text and as a sed replacement string.
+sed_html_escape() {
+    printf '%s' "$1" | sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' -e 's/[\|&]/\\&/g'
+}
 
 command -v nginx >/dev/null 2>&1 || { echo "ERROR: nginx not found in PATH" >&2; exit 1; }
 
@@ -32,7 +39,10 @@ if [ "$SRC" != "$WEB_ROOT" ]; then
         cp -R "$SRC/$item" "$WEB_ROOT/"
     done
 fi
-sed -i -e "s|WEB_IP_ADDRESS|$WEB_IP_ADDRESS|g" -e "s|WEB_SERVER_NAME|$WEB_SERVER_NAME|g" "$WEB_ROOT/index.html"
+sed -e "s|WEB_IP_ADDRESS|$WEB_IP_ADDRESS|g" \
+    -e "s|WEB_SERVER_NAME|$WEB_SERVER_NAME|g" \
+    -e "s|APP_TITLE|$(sed_html_escape "$APP_TITLE")|g" \
+    "$WEB_ROOT/index.html" > "$WEB_ROOT/index.html.tmp" && mv "$WEB_ROOT/index.html.tmp" "$WEB_ROOT/index.html"
 if id -u www-data >/dev/null 2>&1; then
     chown -R www-data:www-data "$WEB_ROOT"
 fi
