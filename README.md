@@ -32,6 +32,11 @@ Deploy in the order database, API, web. Each tier ships a `setup.sh` that
 expects the tier's software to already be installed by your automation. Each
 script is idempotent and safe to re-run.
 
+The archives have their files at the root, so extract each one into a
+directory you create first (`tar` does not create the `-C` target). Any
+location works, for example the home directory; the scripts copy what needs
+to live elsewhere (`/opt/peaks-api`, `/var/www/peaks`) as root themselves.
+
 Common prerequisites for all three scripts:
 
 - run as root (`sudo`), on Ubuntu with systemd;
@@ -49,8 +54,8 @@ Common prerequisites for all three scripts:
 Prerequisite: MongoDB 4.0 or newer with the `mongosh` (or legacy `mongo`) shell.
 
 ```bash
-tar xzf db.tar.gz -C /opt/peaks-db
-sudo /opt/peaks-db/setup.sh
+mkdir -p ~/peaks-db && tar xzf db.tar.gz -C ~/peaks-db
+sudo ~/peaks-db/setup.sh
 ```
 
 What it does:
@@ -73,8 +78,8 @@ Tested with Node.js 17.9.1 and the current LTS releases. The `nodejs` package
 in Ubuntu 22.04's default repos (12.x) is too old.
 
 ```bash
-tar xzf nodejs-app.tar.gz -C /opt/peaks-api
-sudo MONGODB_HOST=<mongodb-vm-ip> /opt/peaks-api/setup.sh
+mkdir -p ~/peaks-api && tar xzf nodejs-app.tar.gz -C ~/peaks-api
+sudo MONGODB_HOST=<mongodb-vm-ip> ~/peaks-api/setup.sh
 ```
 
 What it does:
@@ -100,8 +105,8 @@ order in which the VMs finish booting does not matter.
 Prerequisite: nginx.
 
 ```bash
-tar xzf web.tar.gz -C /opt/peaks-web
-sudo NODEJS_IP_ADDRESS=<nodejs-vm-ip> /opt/peaks-web/setup.sh
+mkdir -p ~/peaks-web && tar xzf web.tar.gz -C ~/peaks-web
+sudo NODEJS_IP_ADDRESS=<nodejs-vm-ip> ~/peaks-web/setup.sh
 ```
 
 What it does:
